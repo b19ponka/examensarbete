@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Britecharts</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/britecharts@2.18.0/dist/bundled/britecharts.min.js"></script>
+    <script src="../data/pilotData.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/britecharts/dist/css/britecharts.min.css"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <!-- Chart container -->
+    <div id="container"></div>
+    <script>
+      // Local variables
+      if (localStorage.time == null) localStorage.time = "";
+      if (localStorage.count == null) localStorage.count = 0;
+      // Variables
+      let stime, etime, rtime;
+      const lineChart = britecharts.line();
+      const container = d3.select("#container");
+      const d1 = d1_1;
+      const d2 = d2_1;
+      // Generate array of dates
+      const date = new Date(1965, 0, 1);
+      let dates = ["1965-01-01T06:00:00"];
+      let sameDay = true;
+      d1.forEach(myFunc);
+      function myFunc() {
+        if (sameDay == true) {
+          date.setHours(19);
+          sameDay = false;
+        } else {
+          date.setDate(date.getDate() + 1);
+          date.setHours(7);
+          sameDay = true;
+        }
+        let a = date.toISOString().split(".")[0];
+        dates.push(a);
+      }
+      // Data object
+      const lineData = { data: [] };
+      // Insert data
+      d1.forEach((i, index) =>
+        lineData.data.push({
+          topicName: "data1",
+          name: 1,
+          date: dates[index],
+          value: i,
+        })
+      );
+      d2.forEach((i, index) =>
+        lineData.data.push({
+          topicName: "data2",
+          name: 2,
+          date: dates[index],
+          value: i,
+        })
+      );
+      // Start time
+      stime = performance.now();
+      // Generate chart
+      container.datum(lineData).call(lineChart);
+      // End time
+      etime = performance.now();
+      // Add rendering time to local storage
+      rtime = Math.round(etime - stime);
+      localStorage.time += rtime + ", ";
+      // Reload until finished
+      if (localStorage.count < 100) {
+        localStorage.count++;
+        setTimeout(function () {
+          location.reload();
+        }, 0);
+      }
+    </script>
+  </body>
+</html>

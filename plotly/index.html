@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Plotly.js</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.11.1.min.js"></script>
+    <script src="../data/pilotData.js"></script>
+  </head>
+  <body>
+    <!-- Chart container -->
+    <div id="container"></div>
+    <script>
+      // Local variables
+      if (localStorage.time == null) localStorage.time = "";
+      if (localStorage.count == null) localStorage.count = 0;
+      // Variables
+      let stime, etime, rtime;
+      const d1 = d1_1;
+      const d2 = d2_1;
+      // Data objects
+      let trace1 = { x: [], y: [], mode: "lines" };
+      let trace2 = { x: [], y: [], mode: "lines" };
+      // Insert data
+      d1.forEach((i, index) => trace1.y.push(i) && trace1.x.push(index + 1));
+      d2.forEach((i, index) => trace2.y.push(i) && trace2.x.push(index + 1));
+      // Array of objects
+      let data = [trace1, trace2];
+      // Start time
+      stime = performance.now();
+      // Generate chart
+      Plotly.newPlot("container", data);
+      // End time
+      etime = performance.now();
+      // Add rendering time to local storage
+      rtime = Math.round(etime - stime);
+      localStorage.time += rtime + ", ";
+      // Reload until finished
+      if (localStorage.count < 100) {
+        localStorage.count++;
+        setTimeout(function () {
+          location.reload();
+        }, 0);
+      }
+    </script>
+  </body>
+</html>
