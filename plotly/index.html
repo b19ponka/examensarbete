@@ -5,7 +5,7 @@
     <title>Plotly.js</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.11.1.min.js"></script>
-    <script src="../data/pilotData.js"></script>
+    <script src="../data/data.js"></script>
   </head>
   <body>
     <!-- Chart container -->
@@ -36,11 +36,9 @@
       rtime = Math.round(etime - stime);
       localStorage.time += rtime + ", ";
       // Reload until finished
-      if (localStorage.count < 100) {
+      if (localStorage.count < 99) {
         localStorage.count++;
-        setTimeout(function () {
-          location.reload();
-        }, 0);
+        location.reload();
       }
     </script>
   </body>

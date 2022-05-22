@@ -39,11 +39,9 @@
       rtime = Math.round(etime - stime);
       localStorage.time += rtime + ", ";
       // Reload until finished
-      if (localStorage.count < 100) {
+      if (localStorage.count < 99) {
         localStorage.count++;
-        setTimeout(function () {
-          location.reload();
-        }, 0);
+        location.reload();
       }
     </script>
   </body>
